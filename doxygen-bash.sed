@@ -151,6 +151,17 @@
     b end
 }
 
+/^ *readonly \+[_a-zA-Z]/{
+    # Convert readonly variable assignments into a constant string
+    # definition. As there is no further type information, assume it's
+    # a general value which is treated like a string
+    s/^ *readonly \+/static const String /
+    s/$/;/
+    p
+    x
+    b end
+}
+
 
 # Delete non doxygen-related lines content, but not the line
 # themselves.
