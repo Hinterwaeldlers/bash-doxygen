@@ -151,6 +151,17 @@
     b end
 }
 
+/^ *[_a-zA-Z0-9]\+=/{
+    # Convert regular variable assignments into string definitions
+    # As there is no further type information, assume it's a general
+    # value which is treated like a string
+    s/^ *\([_a-zA-Z0-9]\+\)=/String \1 = /
+    s/$/;/
+    p
+    x
+    b end
+}
+
 /^ *readonly \+[_a-zA-Z]/{
     # Convert readonly variable assignments into a constant string
     # definition. As there is no further type information, assume it's
